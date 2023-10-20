@@ -10,19 +10,6 @@
 
         git clone https://github.com/tosaken1116/nextjs-app-templates.git
 
-2.  ディレクトリ移動
-
-        cd nextjs-app-templates
-
-3.  パッケージマネージャの選択
-
-        bash setup.sh
-
-    ```
-    Choose a package manager (npm/yarn/pnpm/bun):
-    Enter a new project name:
-    ```
-
 ### スクリプト
 
 - `dev`
@@ -39,6 +26,8 @@
   - `page`コンポーネントを作成します
 - `new:model`
   - `model`コンポーネントを作成します
+- `mock`
+  - モックサーバーを起動します
 - `test:unit`
   - 単体テストを実行します
 - `fmt`
