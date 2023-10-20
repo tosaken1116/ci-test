@@ -1,10 +1,8 @@
-require('dotenv').config({ path: '.env.local' });
-
 module.exports = {
   input: 'api',
   outputEachDir: true,
   openapi: {
-    inputFile: process.env.SCHEMA_URL,
+    inputFile: './schema/build/openapi.yml',
     outputDir: 'src/api',
   },
 };

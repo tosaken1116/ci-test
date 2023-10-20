@@ -1,0 +1,3 @@
+[submodule "schema"]
+	path = schema
+	url = git@github.com:Kyutech-C3/Toybox_schema.git
