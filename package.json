@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.0.0",
-    "aspida": "^1.14.0",
     "lucide-react": "^0.288.0",
     "next": "13.5.5",
     "react": "18.2.0",
@@ -70,6 +69,7 @@
     "@types/react-dom": "18.2.13",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
+    "aspida": "^1.14.0",
     "autoprefixer": "^10.4.16",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
