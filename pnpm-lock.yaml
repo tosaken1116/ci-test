@@ -47,8 +47,8 @@ devDependencies:
     specifier: ^7.2.2
     version: 7.5.0(@types/react-dom@18.2.13)(@types/react@18.2.28)(react-dom@18.2.0)(react@18.2.0)
   '@storybook/addon-links':
-    specifier: ^7.2.2
-    version: 7.5.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^7.5.1
+    version: 7.5.1(react-dom@18.2.0)(react@18.2.0)
   '@storybook/addon-onboarding':
     specifier: ^1.0.8
     version: 1.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -4068,8 +4068,8 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/addon-links@7.5.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-1j0I80k8V1sSGN3faduj9uFk0ThgT4qAYyA/5q2YYA4y6V/K8ywJVOR3nv5j7ueTeBD/gUaoncn+NosusrhRNQ==}
+  /@storybook/addon-links@7.5.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-KDiQYAVNXxuVTB3QLFZxHlfT8q4KnlNKY+0OODvgD5o1FqFpIyUiR5mIBL4SZMRj2EtwrR3KmZ2UPccFZdu9vw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -4079,14 +4079,14 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@storybook/client-logger': 7.5.0
-      '@storybook/core-events': 7.5.0
+      '@storybook/client-logger': 7.5.1
+      '@storybook/core-events': 7.5.1
       '@storybook/csf': 0.1.1
       '@storybook/global': 5.0.0
-      '@storybook/manager-api': 7.5.0(react-dom@18.2.0)(react@18.2.0)
-      '@storybook/preview-api': 7.5.0
-      '@storybook/router': 7.5.0(react-dom@18.2.0)(react@18.2.0)
-      '@storybook/types': 7.5.0
+      '@storybook/manager-api': 7.5.1(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/preview-api': 7.5.1
+      '@storybook/router': 7.5.1(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/types': 7.5.1
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
