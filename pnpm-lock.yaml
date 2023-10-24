@@ -32,8 +32,8 @@ devDependencies:
     specifier: ^17.7.0
     version: 17.8.0
   '@markuplint/jsx-parser':
-    specifier: ^3.9.1
-    version: 3.10.0(typescript@5.2.2)
+    specifier: ^3.11.0
+    version: 3.11.0(typescript@5.2.2)
   '@markuplint/react-spec':
     specifier: ^3.12.0
     version: 3.12.0(@markuplint/ml-core@3.13.0)
@@ -2738,7 +2738,19 @@ packages:
       '@markuplint/parser-utils': 3.11.0
       parse5: 7.1.2
       tslib: 2.6.2
-      type-fest: 4.4.0
+      type-fest: 4.5.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@markuplint/html-parser@3.12.0:
+    resolution: {integrity: sha512-kF+MF9UjREE91tl1i7mng1tHEoAYI+aSpXCtEm+uKxNYdPp4YSL0aI+LTuch+1zYYP4kFYYRBQDAQq6dkkb4ZQ==}
+    dependencies:
+      '@markuplint/ml-ast': 3.2.0
+      '@markuplint/parser-utils': 3.12.0
+      parse5: 7.1.2
+      tslib: 2.6.2
+      type-fest: 4.5.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2755,12 +2767,12 @@ packages:
     resolution: {integrity: sha512-gdugNo0ookMODlYbFMC1jdrrNv55tAABFJNbuPlLmmdct083aEi0COM9R5gRe9zOYQKaLHjTodpcQ9vvpKOcDA==}
     dev: true
 
-  /@markuplint/jsx-parser@3.10.0(typescript@5.2.2):
-    resolution: {integrity: sha512-VuYwsCBgMQxeeZaP/+bkyCjifaAEWf1bVTKvtfGF1j4gICQLp550NoDqTxHOwFxsFi4gmtA8dF9vOoQAHWZm5Q==}
+  /@markuplint/jsx-parser@3.11.0(typescript@5.2.2):
+    resolution: {integrity: sha512-TAey/mNVvo/1r8V363VbOOyD53RpALCnSSR1V+YWrNw6SiFZC60tQAb1SyC5/lK9ppKU5hgSFs7JYbs4KET8+A==}
     dependencies:
-      '@markuplint/html-parser': 3.11.0
+      '@markuplint/html-parser': 3.12.0
       '@markuplint/ml-ast': 3.2.0
-      '@markuplint/parser-utils': 3.11.0
+      '@markuplint/parser-utils': 3.12.0
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.2.2)
       tslib: 2.6.2
@@ -2842,7 +2854,20 @@ packages:
       '@markuplint/types': 3.10.0
       '@types/uuid': 9.0.5
       tslib: 2.6.2
-      type-fest: 4.4.0
+      type-fest: 4.5.0
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@markuplint/parser-utils@3.12.0:
+    resolution: {integrity: sha512-g7BcC9YhEZx5Lt0XrPSiMHM0MvkUcwoFrr/XxdXK6wSm61wMO3Ks6fmBu1+dRCzQXEZfR9XyTvXFqopl677YsA==}
+    dependencies:
+      '@markuplint/ml-ast': 3.2.0
+      '@markuplint/types': 3.11.0
+      '@types/uuid': 9.0.6
+      tslib: 2.6.2
+      type-fest: 4.5.0
       uuid: 9.0.1
     transitivePeerDependencies:
       - supports-color
@@ -5792,6 +5817,10 @@ packages:
 
   /@types/uuid@9.0.5:
     resolution: {integrity: sha512-xfHdwa1FMJ082prjSJpoEI57GZITiQz10r3vEJCHa2khEFQjKy91aWKz6+zybzssCvXUwE1LQWgWVwZ4nYUvHQ==}
+    dev: true
+
+  /@types/uuid@9.0.6:
+    resolution: {integrity: sha512-BT2Krtx4xaO6iwzwMFUYvWBWkV2pr37zD68Vmp1CDV196MzczBRxuEpD6Pr395HAgebC/co7hOphs53r8V7jew==}
     dev: true
 
   /@types/whatwg-mimetype@3.0.0:
