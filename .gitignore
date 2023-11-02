@@ -38,5 +38,6 @@ next-env.d.ts
 /storybook-static
 build-storybook.log
 chromatic.log
+
 # yarn
 /.yarn/
