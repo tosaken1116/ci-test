@@ -82,6 +82,9 @@ devDependencies:
   '@tsconfig/strictest':
     specifier: ^2.0.1
     version: 2.0.2
+  '@types/date-fns':
+    specifier: ^2.6.0
+    version: 2.6.0
   '@types/jest':
     specifier: ^29.5.4
     version: 29.5.6
@@ -5536,6 +5539,13 @@ packages:
     resolution: {integrity: sha512-w2id4lNf2DzAAQ+A3bD9QTY/qpCw9rYlci9RbBscEmF5RO3U/acrcCErvsqkoIZqz9n0yv4CVUqz/6DKDOEZnw==}
     dev: true
 
+  /@types/date-fns@2.6.0:
+    resolution: {integrity: sha512-9DSw2ZRzV0Tmpa6PHHJbMcZn79HHus+BBBohcOaDzkK/G3zMjDUDYjJIWBFLbkh+1+/IOS0A59BpQfdr37hASg==}
+    deprecated: This is a stub types definition for date-fns (https://github.com/date-fns/date-fns). date-fns provides its own type definitions, so you don't need @types/date-fns installed!
+    dependencies:
+      date-fns: 2.30.0
+    dev: true
+
   /@types/debug@4.1.10:
     resolution: {integrity: sha512-tOSCru6s732pofZ+sMv9o4o3Zc+Sa8l3bxd/tweTQudFn06vAzb13ZX46Zi6m6EJ+RUbRTHvgQJ1gBtSgkaUYA==}
     dependencies:
@@ -8058,7 +8068,6 @@ packages:
     engines: {node: '>=0.11'}
     dependencies:
       '@babel/runtime': 7.23.2
-    dev: false
 
   /dayjs@1.11.10:
     resolution: {integrity: sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==}
