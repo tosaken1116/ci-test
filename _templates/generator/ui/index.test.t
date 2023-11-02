@@ -1,12 +1,12 @@
 ---
-to: src/components/model/<%= name %>/index.test.tsx
+to: src/components/ui/<%= name %>/index.test.tsx
 ---
 import { render, screen } from "@testing-library/react";
 
 import "@testing-library/jest-dom";
 import { <%= name %> } from ".";
 
-describe("model/<%= name %>", () => {
+describe("ui/<%= name %>", () => {
   it("title is exist", () => {
     render(<<%= name %> />);
 
