@@ -1,0 +1,25 @@
+name: 'Chromatic'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  chromatic-deployment:
+    # Operating System
+    runs-on: ubuntu-latest
+
+    # Job steps
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/pnpm
+
+      - uses:
+          chromaui/action@v1
+          # Chromatic GitHub Action options
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          exitOnceUploaded: true
+          buildScriptName: 'build-storybook'
