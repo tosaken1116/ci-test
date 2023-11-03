@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { render, screen, fireEvent } from '@testing-library/react';
 
 import '@testing-library/jest-dom';
@@ -61,7 +59,7 @@ describe('functional/FullScreen', () => {
     );
 
     expect(screen.getByRole('button')).toHaveClass(
-      'absolute right-0 bottom-0 p-2'
+      'absolute right-0 bottom-0 p-2 z-50'
     );
   });
 });
