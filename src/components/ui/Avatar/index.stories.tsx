@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Avatar, AvatarFallback, AvatarImage } from '.';
 
 import type { Meta, StoryObj } from '@storybook/react';
@@ -24,3 +22,11 @@ export const Default: Story = {
     </Avatar>
   ),
 };
+
+export const Fallback: Story = {
+  render: () => (
+    <Avatar>
+      <AvatarFallback>CN</AvatarFallback>
+    </Avatar>
+  )
+}

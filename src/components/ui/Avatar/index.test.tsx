@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react';
+
 import '@testing-library/jest-dom';
 
-import { Avatar, AvatarFallback } from '.';
+import { Avatar, AvatarFallback, AvatarImage } from '.';
 
-describe('ui/Avatarのテスト', () => {
+describe('test ui/Avatar', () => {
   it('renders Avatar correctly', () => {
     const { container } = render(<Avatar />);
     expect(container.firstChild).toHaveClass(
@@ -11,10 +12,12 @@ describe('ui/Avatarのテスト', () => {
     );
   });
 
-  it('renders Avatar with AvatarFallback correctly', () => {
+  it('renders Avatar with AvatarImage, AvatarFallback correctly', () => {
     const fallbackText = 'FB';
+    const imageUrl = 'https://github.com/shadcn.png'
     render(
       <Avatar>
+        <AvatarImage src={imageUrl} />
         <AvatarFallback>{fallbackText}</AvatarFallback>
       </Avatar>
     );
