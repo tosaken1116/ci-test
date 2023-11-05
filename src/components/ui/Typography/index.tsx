@@ -1,4 +1,4 @@
-import React from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { cva } from 'class-variance-authority';
 
@@ -19,7 +19,7 @@ export type Variant =
 type Props = {
   variant?: Variant;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const typographyVariants = cva('', {
@@ -39,7 +39,7 @@ const typographyVariants = cva('', {
   },
 });
 
-export const Typography: React.FC<Props> = ({
+export const Typography: FC<Props> = ({
   variant = 'body1',
   className,
   children,
