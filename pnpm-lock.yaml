@@ -26,6 +26,9 @@ dependencies:
   react-error-boundary:
     specifier: ^4.0.11
     version: 4.0.11(react@18.2.0)
+  react-full-screen:
+    specifier: ^1.1.1
+    version: 1.1.1(react@18.2.0)
 
 devDependencies:
   '@commitlint/cli':
@@ -40,6 +43,9 @@ devDependencies:
   '@markuplint/react-spec':
     specifier: ^3.12.0
     version: 3.12.0(@markuplint/ml-core@3.13.0)
+  '@radix-ui/react-avatar':
+    specifier: ^1.0.4
+    version: 1.0.4(@types/react-dom@18.2.13)(@types/react@18.2.30)(react-dom@18.2.0)(react@18.2.0)
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.2.30)(react@18.2.0)
@@ -3155,6 +3161,30 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.2
       '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.13)(@types/react@18.2.30)(react-dom@18.2.0)(react@18.2.0)
+      '@types/react': 18.2.30
+      '@types/react-dom': 18.2.13
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: true
+
+  /@radix-ui/react-avatar@1.0.4(@types/react-dom@18.2.13)(@types/react@18.2.30)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-kVK2K7ZD3wwj3qhle0ElXhOjbezIgyl2hVvgwfIdexL3rN6zJmy5AqqIf+D31lxVppdzV8CjAfZ6PklkmInZLw==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.2
+      '@radix-ui/react-context': 1.0.1(@types/react@18.2.30)(react@18.2.0)
+      '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.13)(@types/react@18.2.30)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-use-callback-ref': 1.0.1(@types/react@18.2.30)(react@18.2.0)
+      '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.2.30)(react@18.2.0)
       '@types/react': 18.2.30
       '@types/react-dom': 18.2.13
       react: 18.2.0
@@ -9862,6 +9892,10 @@ packages:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
 
+  /fscreen@1.2.0:
+    resolution: {integrity: sha512-hlq4+BU0hlPmwsFjwGGzZ+OZ9N/wq9Ljg/sq3pX+2CD7hrJsX9tJgWWK/wiNTFM212CLHWhicOoqwXyZGGetJg==}
+    dev: false
+
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -13771,6 +13805,16 @@ packages:
       react: '>=16.13.1'
     dependencies:
       '@babel/runtime': 7.23.2
+      react: 18.2.0
+    dev: false
+
+  /react-full-screen@1.1.1(react@18.2.0):
+    resolution: {integrity: sha512-xoEgkoTiN0dw9cjYYGViiMCBYbkS97BYb4bHPhQVWXj1UnOs8PZ1rPzpX+2HMhuvQV1jA5AF9GaRbO3fA5aZtg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>= 16.8.0'
+    dependencies:
+      fscreen: 1.2.0
       react: 18.2.0
     dev: false
 

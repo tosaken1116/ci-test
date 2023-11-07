@@ -43,7 +43,18 @@
         "html": true
       }
     ],
-
+    // Reactの明示的なimportを禁止する
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "react",
+            "importNames": ["default"]
+          }
+        ]
+      }
+    ],
     // 型の名前をパスカルケースにする
     "@typescript-eslint/naming-convention": [
       "error",
