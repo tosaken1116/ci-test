@@ -77,17 +77,28 @@
           // modelコンポーネントにおいて、pageのimportを禁止する
           {
             "target": "./src/components/model",
-            "from": ["./src/components/page"]
+            "from": [
+              "./src/components/page",
+              "./node_modules/@radix-ui/",
+              "./node_modules/react-error-boundary"
+            ]
           },
           // pageコンポーネントにおいて、他のpageコンポーネントからのimportを禁止する
           {
             "target": "./src/components/page/**/index.tsx",
-            "from": ["./src/components/page/**/index.tsx"]
+            "from": [
+              "./src/components/page/**/index.tsx",
+              "./node_modules/@radix-ui/"
+            ]
           },
           // appディレクトリ配下においてmodel,uiのimportを禁止する
           {
             "target": "./src/app/**/page.tsx",
-            "from": ["./src/components/model", "./src/components/ui"]
+            "from": [
+              "./src/components/model",
+              "./src/components/ui",
+              "./node_modules/@radix-ui/"
+            ]
           }
         ]
       }
