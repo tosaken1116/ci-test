@@ -12,7 +12,13 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "import", "unused-imports", "jsx-a11y"],
+  "plugins": [
+    "react",
+    "import",
+    "unused-imports",
+    "jsx-a11y",
+    "@typescript-eslint"
+  ],
   "rules": {
     // 関数の戻り値の型を明示的に指定する
     "@typescript-eslint/explicit-function-return-type": "error",
@@ -189,8 +195,13 @@
     "@typescript-eslint/consistent-type-imports": [
       "error",
       {
-        "prefer": "type-imports"
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": false,
+        "fixStyle": "inline-type-imports"
       }
-    ]
+    ],
+    "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+
+    "@typescript-eslint/no-import-type-side-effects": ["error"]
   }
 }
