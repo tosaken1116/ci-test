@@ -1,6 +1,8 @@
 name: Dependabot auto-merge
-on: pull_request
-
+on:
+  pull_request_target:
+    types:
+      - opened
 permissions:
   contents: write
   pull-requests: write
@@ -15,9 +17,16 @@ jobs:
         uses: dependabot/fetch-metadata@v1
         with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
-      - name: Enable auto-merge for Dependabot PRs
+
+      - name: approve
         if: contains(steps.metadata.outputs.dependency-names, 'my-dependency') && steps.metadata.outputs.update-type == 'version-update:semver-patch'
+
+        run: gh pr review --approve "$PR_URL"
+
+      - name: Enable auto-merge for Dependabot PRs
         run: gh pr merge --auto --merge "$PR_URL"
+
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
