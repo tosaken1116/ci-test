@@ -7,7 +7,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '.';
 // TooltipContentコンポーネントの基本的なレンダリングをテストします
 describe('ui/Tooltip', () => {
   it('renders the component with default props', async () => {
-    render(
+    const { getByText } = render(
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>Hover me</TooltipTrigger>
@@ -15,8 +15,7 @@ describe('ui/Tooltip', () => {
         </Tooltip>
       </TooltipProvider>
     );
-    const trigger = screen.getByText('Hover me');
-    await userEvent.hover(trigger);
+    await userEvent.hover(getByText('Hover me'));
     await waitFor(() =>
       expect(screen.getAllByText(/Tooltip Text/)[0]).toBeInTheDocument()
     );
@@ -24,7 +23,7 @@ describe('ui/Tooltip', () => {
 
   it('applies a custom class name', async () => {
     const customClass = 'custom-tooltip';
-    render(
+    const { getByText } = render(
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>Hover me</TooltipTrigger>
@@ -32,8 +31,7 @@ describe('ui/Tooltip', () => {
         </Tooltip>
       </TooltipProvider>
     );
-    const trigger = screen.getByText('Hover me');
-    await userEvent.hover(trigger);
+    await userEvent.hover(getByText('Hover me'));
     await waitFor(() =>
       expect(screen.getAllByText(/Tooltip Text/)[0]).toHaveClass(customClass)
     );
