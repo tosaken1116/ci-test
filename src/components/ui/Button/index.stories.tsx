@@ -69,13 +69,6 @@ export const Large: Story = {
   },
 };
 
-export const Icon: Story = {
-  args: {
-    size: 'icon',
-    children: 'Icon',
-  },
-};
-
 export const StartIcon: Story = {
   args: {
     startIcon: <span>👍</span>,
