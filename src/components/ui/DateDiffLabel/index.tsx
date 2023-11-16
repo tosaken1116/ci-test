@@ -12,7 +12,7 @@ type Prop = {
 
 export const DateDiffLabel: FC<Prop> = ({ 
   date, 
-  now, 
+  now = new Date(), 
   className,
 }) => {
   const nowDate = now ?? new Date();
