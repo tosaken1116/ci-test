@@ -14,11 +14,8 @@ export const DateDiffLabel: FC<Prop> = ({
   date, 
   now = new Date(), 
   className,
-}) => {
-  const nowDate = now ?? new Date();
-  return (
+}) => (
     <time  className={cn(className)} dateTime={date.toISOString()}>
-      {DateToDiffLabel(date, nowDate)}
+      {DateToDiffLabel(date, now)}
     </time>
   );
-};
