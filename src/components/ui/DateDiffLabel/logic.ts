@@ -18,26 +18,26 @@ export const DateToDiffLabel = (
   if(diffInSeconds <= MONTH * 3) {
     if (diffInSeconds < MINUTE)
         return `${diffInSeconds}${
-            DATE_DIFF_LABEL['second']['past']
+            DATE_DIFF_LABEL['second']
         }`;
     if (diffInSeconds < HOUR)
         return `${Math.floor(diffInSeconds / MINUTE)}${
-            DATE_DIFF_LABEL['minute']['past']
+            DATE_DIFF_LABEL['minute']
         }`;
     if (diffInSeconds < DAY)
         return `${Math.floor(diffInSeconds / HOUR)}${
-            DATE_DIFF_LABEL['hour']['past']
+            DATE_DIFF_LABEL['hour']
         }`;
     if (diffInSeconds < WEEK)
         return `${Math.floor(diffInSeconds / DAY)}${
-            DATE_DIFF_LABEL['day']['past']
+            DATE_DIFF_LABEL['day']
         }`;
     if (diffInSeconds < MONTH) 
         return `${Math.floor(diffInSeconds / WEEK)}${
-            DATE_DIFF_LABEL['week']['past']
+            DATE_DIFF_LABEL['week']
         }`;
     return `${Math.floor(diffInSeconds / MONTH)}${
-      DATE_DIFF_LABEL['month']['past']
+      DATE_DIFF_LABEL['month']
     }`;
   }
 

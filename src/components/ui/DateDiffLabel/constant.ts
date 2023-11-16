@@ -1,22 +1,10 @@
 export const DATE_DIFF_LABEL = {
-  second: {
-    past: '秒前',
-  },
-  minute: {
-    past: '分前',
-  },
-  hour: {
-    past: '時間前',
-  },
-  day: {
-    past: '日前',
-  },
-  week: {
-    past: '週間前',
-  },
-  month: {
-    past: 'ヶ月前',
-  },
+  second: '秒前',
+  minute: '分前',
+  hour: '時間前',
+  day: '日前',
+  week: '週間前',
+  month: 'ヶ月前',
 } as const;
 
 export const MINUTE = 60;
