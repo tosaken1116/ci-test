@@ -1,1 +1,1 @@
-export { ErrorBoundary } from 'react-error-boundary';
+export { ErrorBoundary, useErrorBoundary } from 'react-error-boundary';
