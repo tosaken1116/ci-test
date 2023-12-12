@@ -103,7 +103,7 @@
     "openapi2aspida": "^0.23.2",
     "postcss": "^8.4.31",
     "prettier": "^3.0.1",
-    "storybook": "^7.2.2",
+    "storybook": "^7.6.4",
     "tailwind-merge": "^2.0.0",
     "tailwindcss": "^3.3.3",
     "tailwindcss-animate": "^1.0.7",
