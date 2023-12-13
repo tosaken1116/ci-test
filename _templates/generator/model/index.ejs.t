@@ -1,14 +1,10 @@
 ---
-to: "<%= `src/components/model/${name}/presentations/index.tsx` %>"
+to: "<%= `src/components/model/${domains}/components/${name}/presentations/index.ts` %>"
 ---
-import type { FC } from 'react';
+export * from "./container"
 
-<% if (have_hooks) { %>import { use<%= name %> } from '../hooks';<% } %>
+export * from "./main"
 
-export const <%= name %>Presentation: FC = () => {
-  <% if (have_hooks) { %>const {<% if(gen_files.includes("Empty")){ %> isEmpty <% }%>} = use<%= name %>();<% } %>
-  <% if (have_hooks && gen_files.includes("Empty")) { %>if (isEmpty){
-    return <<%= name %>Presentation />;
-  }<%} %>
-  return <div>this is <%= name %> presentation</div>;
-};
+<% gen_files.forEach(file=>{%>export { <%= name %><%= file %>Presentation  } from './<%= file.toLowerCase() %>';
+
+<%})%>

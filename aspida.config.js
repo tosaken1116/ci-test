@@ -2,7 +2,7 @@ module.exports = {
   input: 'api',
   outputEachDir: true,
   openapi: {
-    inputFile: './schema/build/openapi.yml',
+    inputFile: 'https://kodomobeya.compositecomputer.club/openapi.json',
     outputDir: 'src/api',
   },
 };
