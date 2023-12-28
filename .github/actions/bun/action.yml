@@ -8,11 +8,17 @@ runs:
       with:
         node-version-file: 'package.json'
     - name: set bun env
-      run: source ./../../../scripts/version-source.sh
-        echo "BUN_VERSION=$bun_version" >> $GITHUB_ENV
+      run: |
+        source scripts/version-source.sh
+        path=BUN_VERSION=$bun_version
+        echo $path >> $GITHUB_ENV
+      shell: bash
+    - name: check env
+      run: |
+        echo ${{env.BUN_VERSION}}
       shell: bash
     - uses: oven-sh/setup-bun@v1
       with:
-        bun-version: ${{ env.BUN_VERSION }}
+        bun-version: ${{env.BUN_VERSION}}
     - run: bun install
       shell: bash
