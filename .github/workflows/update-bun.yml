@@ -1,0 +1,17 @@
+name: update bun version manual
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'bun version'
+        required: true
+        default: '0.0.0'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: update version_source.sh
+      - run: sed -i "s/bun_version="[^\"]"/bun_version="${{ github.event.inputs.version }}/g" scripts/version_source.sh
