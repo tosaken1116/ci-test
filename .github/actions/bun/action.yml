@@ -1,5 +1,5 @@
-name: "bun setup"
-description: "Setup bun"
+name: 'bun setup'
+description: 'Setup bun'
 runs:
   using: composite
   steps:
@@ -8,5 +8,7 @@ runs:
       with:
         node-version-file: 'package.json'
     - uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: 1.0.20
     - run: bun install
       shell: bash
