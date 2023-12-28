@@ -14,4 +14,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: update version_source.sh
-      - run: sed -i "s/bun_version="[^\"]"/bun_version="${{ github.event.inputs.version }}/g" scripts/version_source.sh
+      - run: |
+          sed -i 's/bun_version="[^\\"]*"/bun_version=\"${{ github.event.inputs.version }}"/g' scripts/version-source.sh
