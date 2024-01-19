@@ -1,23 +1,56 @@
-name: ci
-on: push
+name: CI
+
+on: [push, pull_request]
+
 jobs:
+  install-dependencies:
+    runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.cache-modules.outputs.cache-hit }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache node modules
+      id: cache-modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+
+    - name: Install Dependencies
+      run: npm install
+
   lint:
+    needs: install-dependencies
     runs-on: ubuntu-latest
-
+    if: needs.install-dependencies.outputs.cache-hit != 'true'
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup
-        uses: ./.github/actions/bun
+    - uses: actions/checkout@v2
 
-      - name: static check
-        run: bun run ci:check
+    - name: Use Cached Dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Lint
+      run: bun run ci:check
+
   test:
+    needs: install-dependencies
     runs-on: ubuntu-latest
-
+    if: needs.install-dependencies.outputs.cache-hit != 'true'
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup
-        uses: ./.github/actions/bun
+    - uses: actions/checkout@v2
 
-      - name: test
-        run: bun run ci:test-group
+    - name: Use Cached Dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+    - name: Test
+      run: bun run ci:test
