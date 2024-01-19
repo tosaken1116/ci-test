@@ -37,7 +37,7 @@ jobs:
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
     - name: Lint
-      run: bun run ci:check
+      run: npm run ci:check
 
   test:
     needs: install-dependencies
@@ -53,4 +53,4 @@ jobs:
         key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
     - name: Test
-      run: bun run ci:test
+      run: npm run ci:test
