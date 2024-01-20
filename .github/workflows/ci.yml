@@ -23,7 +23,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
       - name: Lint
-        run: npm run ci:lint
+        run: npm run lint
 
   test:
     needs: install-dependencies
@@ -38,7 +38,7 @@ jobs:
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - name: Test
-        run: npm run ci:test
+        run: npm run test:unit
   build:
     needs: install-dependencies
     runs-on: ubuntu-latest
