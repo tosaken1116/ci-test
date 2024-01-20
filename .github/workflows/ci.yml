@@ -91,6 +91,7 @@ jobs:
           branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
   lighthouse:
+    if: github.event_name == 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -124,9 +125,8 @@ jobs:
             const table = `
               | URL | Performance | Accessibility | Best Practices | SEO | PWA |
               | --- | ----------- | ------------- | -------------- | --- | --- |
-              ${results.map(result => `| ${result.url} | ${result.summary.performance} | ${result.summary.accessibility} | ${result.summary['best-practices']} | ${result.summary.seo} | ${result.summary.pwa} |`).join('\n')}
+              ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} |`).join('\n')}
             `;
-            console.log(table);
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
