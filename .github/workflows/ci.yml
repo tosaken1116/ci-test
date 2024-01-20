@@ -90,3 +90,19 @@ jobs:
           workflow: nextjs_bundle_analysis.yml
           branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Cached Dependencies
+        uses: actions/cache@v4
+        with:
+          path: '**/.next'
+          key: ${{ runner.os }}-npm-build-${{ github.sha }}
+
+      - name: Install Lighthouse
+        run: npm install -g @lhci/cli
+      - name: Run Lighthouse
+        run: lhci autorun
