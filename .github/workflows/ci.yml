@@ -5,28 +5,15 @@ on: [push, pull_request]
 jobs:
   install-dependencies:
     runs-on: ubuntu-latest
-    outputs:
-      cache-hit: ${{ steps.cache-modules.outputs.cache-hit }}
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Cache node modules
-        id: cache-modules
-        uses: actions/cache@v4
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - name: Install Dependencies
-        run: npm ci
+      - name: install modules
+        uses: ./.github/actions/module-ci
 
   lint:
     needs: install-dependencies
     runs-on: ubuntu-latest
-    if: needs.install-dependencies.outputs.cache-hit != 'true'
     steps:
       - uses: actions/checkout@v2
 
@@ -35,15 +22,12 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-      - name: module exists
-        run: ls node_modules
       - name: Lint
         run: npm run ci:check
 
   test:
     needs: install-dependencies
     runs-on: ubuntu-latest
-    if: needs.install-dependencies.outputs.cache-hit != 'true'
     steps:
       - uses: actions/checkout@v2
 
