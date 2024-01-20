@@ -63,6 +63,7 @@ jobs:
         run: npm run build
 
   bundle-analysis:
+    if: github.event_name == 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -91,6 +92,7 @@ jobs:
           branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
   lighthouse:
+    if: github.event_name == 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -108,8 +110,27 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install Lighthouse
-        run: npm install -g @lhci/cli
-
       - name: Run Lighthouse
-        run: lhci autorun
+        id: lighthouse
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          budgetPath: ./budget.json # test performance budgets
+          uploadArtifacts: true # save results as an action artifacts
+          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          configPath: ./lighthouserc.json
+      - name: Create Lighthouse Comment
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const results = ${{steps.lighthouse.outputs.manifest}}
+            const table = `
+              | URL | Performance | Accessibility | Best Practices | SEO | PWA |
+              | --- | ----------- | ------------- | -------------- | --- | --- |
+              ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} |`).join('\n')}
+            `;
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: table
+            });
