@@ -105,4 +105,4 @@ jobs:
       - name: Install Lighthouse
         run: npm install -g @lhci/cli
       - name: Run Lighthouse
-        run: lhci autorun --upload.target=temporary-public-storage --collect.staticDistDir=./.next/static --collect.url=http://localhost:3000 --collect.startServerCommand="npm run start"
+        run: lhci autorun
