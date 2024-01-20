@@ -107,7 +107,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
       - name: Analyze bundle
-        run: ANALYZE=true bun run build
+        run: bun run analyze
       - name: Deploy
 
         uses: peaceiris/actions-gh-pages@v3
