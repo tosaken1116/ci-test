@@ -63,6 +63,7 @@ jobs:
         run: npm run build
 
   bundle-analysis:
+    if: github.event_name == 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     steps:
