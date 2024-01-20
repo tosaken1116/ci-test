@@ -92,6 +92,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         if: success() && github.event.number
         with:
+          workflow: ci.yml
           branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
   lighthouse:
@@ -117,7 +118,6 @@ jobs:
         id: lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
-          budgetPath: ./budget.json # test performance budgets
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
           configPath: ./lighthouserc.json
