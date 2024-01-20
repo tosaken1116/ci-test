@@ -96,6 +96,8 @@ jobs:
           branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          name: bundle
+
   lighthouse:
     if: github.event_name == 'pull_request'
     needs: build
