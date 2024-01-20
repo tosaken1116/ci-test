@@ -115,4 +115,8 @@ jobs:
         run: |
           lhci autorun
           ls
-          ls ~/
+          ls ~/factory
+          ls ~/perflog
+          ls ~/runners
+          ls ~/warmup
+          ls ~/work
