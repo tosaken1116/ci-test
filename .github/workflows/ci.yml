@@ -120,7 +120,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const results = ${JSON.stringify(${{steps.lighthouse.outputs.manifest}})};
+            const results = ${{steps.lighthouse.outputs.manifest}}
             const table = `
               | URL | Performance | Accessibility | Best Practices | SEO | PWA |
               | --- | ----------- | ------------- | -------------- | --- | --- |
