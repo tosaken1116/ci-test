@@ -96,18 +96,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Build Cache
+      - name: Use Cached Build
         uses: actions/cache@v4
         with:
           path: '**/.next'
           key: ${{ runner.os }}-npm-build-${{ github.sha }}
 
-      - name: Use Cached Build
+      - name: Use Cached Dependencies
         uses: actions/cache@v4
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install Lighthouse
         run: npm install -g @lhci/cli
+
       - name: Run Lighthouse
         run: lhci autorun
