@@ -133,7 +133,7 @@ jobs:
               | --- | ----------- | ------------- | -------------- | --- | --- |
               ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} |`).join('\n')}
             `;
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
