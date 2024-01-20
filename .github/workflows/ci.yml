@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 permissions:
   id-token: write
-  contents: read
+  contents: write
   pull-requests: write
   actions: read
 jobs:
@@ -109,10 +109,11 @@ jobs:
       - name: Analyze bundle
         run: ANALYZE=true bun run build
       - name: Deploy
+
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./.next/analyze/client.html
+          publish_dir: ./.next/analyze
       # - name: Upload bundle
       #   uses: actions/upload-artifact@v2
       #   with:
