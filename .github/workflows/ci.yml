@@ -115,4 +115,4 @@ jobs:
         run: |
           lhci autorun
           ls
-          ls ./lhci
+          ls ~/
