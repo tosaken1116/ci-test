@@ -40,7 +40,6 @@ jobs:
       - name: Test
         run: npm run ci:test
   build:
-    if: github.event_name == 'pull_request'
     needs: install-dependencies
     runs-on: ubuntu-latest
     steps:
