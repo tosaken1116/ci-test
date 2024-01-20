@@ -119,4 +119,4 @@ jobs:
           ls ~/perflog
           ls ~/runners
           ls ~/warmup
-          ls ~/work
+          ls ~/work/ci-test
