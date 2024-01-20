@@ -15,7 +15,7 @@ jobs:
         id: cache-modules
         uses: actions/cache@v4
         with:
-          path: ~/.npm
+          path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
@@ -33,7 +33,7 @@ jobs:
       - name: Use Cached Dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.npm
+          path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
       - name: module exists
         run: ls node_modules
@@ -50,7 +50,7 @@ jobs:
       - name: Use Cached Dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.npm
+          path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - name: Test
