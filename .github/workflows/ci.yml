@@ -104,27 +104,32 @@ jobs:
       - name: Use Cached Build
         uses: actions/cache@v4
         with:
-          path: '**/.next'
-          key: ${{ runner.os }}-npm-build-${{ github.sha }}
+          path: '**/node_modules'
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
       - name: Analyze bundle
-        run: npx -p nextjs-bundle-analysis report
-
-      - name: Upload bundle
-        uses: actions/upload-artifact@v2
+        run: ANALYZE=true bun run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
         with:
-          name: bundle
-          path: .next/analyze/__bundle_analysis.json
-
-      - name: Download base branch bundle stats
-        uses: dawidd6/action-download-artifact@v2
-        if: success() && github.event.number
-        with:
-          workflow: ci.yml
-          branch: ${{ github.event.pull_request.base.ref }}
-          path: .next/analyze/base
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          name: bundle
+          publish_dir: ./.next/analyze/client.html
+      # - name: Upload bundle
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: bundle
+      #     path: .next/analyze/__bundle_analysis.json
+
+      # - name: Download base branch bundle stats
+      #   uses: dawidd6/action-download-artifact@v2
+      #   if: success() && github.event.number
+      #   with:
+      #     workflow: ci.yml
+      #     branch: ${{ github.event.pull_request.base.ref }}
+      #     path: .next/analyze/base
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     name: bundle
 
   lighthouse:
     if: github.event_name == 'pull_request'
