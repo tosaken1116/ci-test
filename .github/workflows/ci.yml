@@ -26,7 +26,7 @@ jobs:
           script: |
             const totalLines = ${{ steps.diff.outputs.total-lines }};
             const warning = `> [!WARNING]\n> The code changes are nearly 400 lines. Reviewers, please review carefully.\n> Reviewees, try to keep changes under 300 lines.`;
-            const caution =`> [!CAUTION]\n> The code changes exceed 400 lines. This amount of changes may increase the risk of bugs.\n> Reviewees might find it easier to review if the pull request is split.
+            const caution =`> [!CAUTION]\n> The code changes exceed 400 lines. This amount of changes may increase the risk of bugs.\n> Reviewees might find it easier to review if the pull request is split.`;
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
