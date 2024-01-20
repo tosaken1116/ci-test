@@ -119,4 +119,5 @@ jobs:
           ls ~/perflog
           ls ~/runners
           ls ~/warmup
+          echo "ls ~/work/ci-test"
           ls ~/work/ci-test
