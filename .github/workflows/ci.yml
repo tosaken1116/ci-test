@@ -112,6 +112,7 @@ jobs:
         run: npm install -g @lhci/cli
 
       - name: Run Lighthouse
+        id: lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
           budgetPath: ./budget.json # test performance budgets
@@ -119,7 +120,7 @@ jobs:
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
           configPath: ./lighthouserc.json
       - name: check exist
-        run: ls
+        run: echo ${{ steps.lighthouse.outputs.manifest }}
         # run: |
         #   lhci autorun --upload.token=${{GITHUB.TOKEN}}
         #   ls
