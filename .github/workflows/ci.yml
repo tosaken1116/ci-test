@@ -108,9 +108,6 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Install Lighthouse
-        run: npm install -g @lhci/cli
-
       - name: Run Lighthouse
         id: lighthouse
         uses: treosh/lighthouse-ci-action@v10
@@ -119,14 +116,20 @@ jobs:
           uploadArtifacts: true # save results as an action artifacts
           temporaryPublicStorage: true # upload lighthouse report to the temporary storage
           configPath: ./lighthouserc.json
-      - name: check exist
-        run: echo ${{ steps.lighthouse.outputs.manifest }}
-        # run: |
-        #   lhci autorun --upload.token=${{GITHUB.TOKEN}}
-        #   ls
-        #   ls ~/factory
-        #   ls ~/perflog
-        #   ls ~/runners
-        #   ls ~/warmup
-        #   echo "ls ~/work/ci-test"
-        #   ls ~/work/ci-test/ci-test
+      - name: Create Lighthouse Comment
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const results = ${JSON.stringify(${{steps.lighthouse.outputs.manifest}})};
+            const table = `
+              | URL | Performance | Accessibility | Best Practices | SEO | PWA |
+              | --- | ----------- | ------------- | -------------- | --- | --- |
+              ${results.map(result => `| ${result.url} | ${result.summary.performance} | ${result.summary.accessibility} | ${result.summary['best-practices']} | ${result.summary.seo} | ${result.summary.pwa} |`).join('\n')}
+            `;
+            console.log(table);
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: table
+            });
