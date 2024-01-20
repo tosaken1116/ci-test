@@ -1,7 +1,11 @@
 name: CI
 
 on: [push, pull_request]
-
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  actions: read
 jobs:
   install-dependencies:
     runs-on: ubuntu-latest
