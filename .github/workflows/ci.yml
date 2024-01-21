@@ -95,7 +95,6 @@ jobs:
         run: npm run build
 
   bundle-analysis:
-    if: github.event_name == 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -123,9 +122,9 @@ jobs:
         if: success() && github.event.number
         with:
           workflow: ci.yml
+          branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
           repo: ${{ github.repository }}
-          branch: ${{ github.event.pull_request.head.ref }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compare with base branch bundle
