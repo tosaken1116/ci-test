@@ -125,7 +125,7 @@ jobs:
           workflow: ci.yml
           path: .next/analyze/base
           repo: ${{ github.repository }}
-          branch: caution
+          branch: ${{ github.event.pull_request.head.ref }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compare with base branch bundle
