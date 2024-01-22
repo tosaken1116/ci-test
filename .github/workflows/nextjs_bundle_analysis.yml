@@ -78,6 +78,7 @@ jobs:
           branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
           name: bundle
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           check_artifacts: true
           search_artifacts: true
 
