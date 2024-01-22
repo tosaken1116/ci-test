@@ -121,13 +121,12 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         if: success() && github.event.number
         with:
-          workflow: nextjs_bundle_analysis.yml
+          workflow: ci.yml
+          branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
+          repo: ${{ github.repository }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           name: bundle
-          branch: ${{ github.event.pull_request.base.ref }}
-          check_artifacts: true
-          search_artifacts: true
 
       - name: Compare with base branch bundle
         if: success() && github.event.number
