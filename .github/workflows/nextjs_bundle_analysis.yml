@@ -76,7 +76,7 @@ jobs:
         with:
           workflow: nextjs_bundle_analysis.yml
           branch: ${{ github.event.pull_request.base.ref }}
-          path: .next/analyze/base
+          path: .next/analyze/base/bundle
           name: bundle
           github_token: ${{ secrets.GITHUB_TOKEN }}
           check_artifacts: true
