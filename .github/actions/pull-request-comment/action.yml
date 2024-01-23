@@ -15,7 +15,7 @@ runs:
       if: success() && github.event.number
       run: |
         echo "body<<EOF" >> $GITHUB_OUTPUT
-        echo "${{includes-comment}}" >> $GITHUB_OUTPUT
+        echo "${{inputs.includes-comment}}" >> $GITHUB_OUTPUT
         echo "${{inputs.comment-body}}" >> $GITHUB_OUTPUT
         echo EOF >> $GITHUB_OUTPUT
       shell: bash
