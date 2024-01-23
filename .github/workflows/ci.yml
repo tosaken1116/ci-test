@@ -155,11 +155,9 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const results = ${{steps.lighthouse.outputs.manifest}}
-            const table = `EOF
-              | URL | Performance | Accessibility | Best Practices | SEO | PWA |
-              | --- | ----------- | ------------- | -------------- | --- | --- |
-              ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} |`).join('\n')}
-              EOF`;
+            const table = `EOF| URL | Performance | Accessibility | Best Practices | SEO | PWA |
+            | --- | ----------- | ------------- | -------------- | --- | --- |
+            ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} |`).join('\n')}EOF`;
             core.setOutput("body", table)
       - name: Comment to Pull Request
         uses: ./.github/actions/pull-request-comment
