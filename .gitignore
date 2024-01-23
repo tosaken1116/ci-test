@@ -41,3 +41,5 @@ chromatic.log
 
 # yarn
 /.yarn/
+
+/.test_cache/
