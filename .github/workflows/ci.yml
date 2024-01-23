@@ -175,6 +175,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const results = ${{steps.lighthouse.outputs.manifest}}
+            const links = ${{steps.lighthouse.outputs.links}}
             const mark = (value) => {
               if (value >= 0.9) {
                 return '🟢';
@@ -188,7 +189,7 @@ jobs:
             # Lighthouse Report
               | URL | Performance | Accessibility | Best Practices | SEO | PWA | Details |
               | --- | ----------- | ------------- | -------------- | --- | --- | ------- |
-              ${results.map((result) => `| ${result.url} | ${mark(result.summary.performance)}${Math.trunc(result.summary.performance * 100)} | ${mark(result.summary.accessibility)}${Math.trunc(result.summary.accessibility * 100)} | ${mark(result.summary['best-practices'])}${Math.trunc(result.summary['best-practices'] * 100)} | ${mark(result.summary.seo)}${Math.trunc(result.summary.seo * 100)} | ${mark(result.summary.pwa)}${Math.trunc(result.summary.pwa * 100)} | :pencil: [result](${result.htmlPath}) |`).join('\n')}
+              ${results.map((result) => `| ${result.url} | ${mark(result.summary.performance)}${Math.trunc(result.summary.performance * 100)} | ${mark(result.summary.accessibility)}${Math.trunc(result.summary.accessibility * 100)} | ${mark(result.summary['best-practices'])}${Math.trunc(result.summary['best-practices'] * 100)} | ${mark(result.summary.seo)}${Math.trunc(result.summary.seo * 100)} | ${mark(result.summary.pwa)}${Math.trunc(result.summary.pwa * 100)} | :pencil: [result](${links[result.url]}) |`).join('\n')}
             `;
 
             core.setOutput("body", body)
