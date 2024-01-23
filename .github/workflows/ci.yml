@@ -108,7 +108,7 @@ jobs:
         with:
           workflow: ci.yml
           branch: ${{ github.event.pull_request.base.ref }}
-          path: .next/analyze/base
+          path: .next/analyze/base/bundle
           repo: ${{ github.repository }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           name: bundle
