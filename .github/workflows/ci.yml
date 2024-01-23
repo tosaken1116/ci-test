@@ -149,6 +149,7 @@ jobs:
           temporaryPublicStorage: true
           configPath: ./lighthouserc.json
       - name: Create Lighthouse Comment
+        id: light-house-comment
         uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -159,9 +160,9 @@ jobs:
               | --- | ----------- | ------------- | -------------- | --- | --- |
               ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} |`).join('\n')}
             `;
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: table
-            });
+            core.setOutput("body", value)
+      - name: Comment to Pull Request
+        uses: ./.github/actions/pull-request-comment
+        with:
+          includes-comment: '<!-- __LIGHTHOUSE -->'
+          comment-body: ${{steps.light-house-comment.outputs.body}}
