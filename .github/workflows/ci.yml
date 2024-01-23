@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 permissions:
   id-token: write
-  contents: read
+  contents: write
   pull-requests: write
   actions: read
 jobs:
@@ -76,55 +76,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Cached Build
-        id: cached-build
-        uses: actions/cache@v4
-        with:
-          path: '**/.next'
-          key: ${{ runner.os }}-npm-build-${{ github.sha }}
-
-      - name: Use Cached Dependencies
-        if: steps.cached-build.outputs.cache-hit != 'true'
-        uses: actions/cache@v4
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Build
-        if: steps.cached-build.outputs.cache-hit != 'true'
-        run: npm run build
+      - name: install modules
+        uses: ./.github/actions/cache-build
 
   bundle-analysis:
-    if: github.event_name == 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Use Cached Build
         uses: actions/cache@v4
         with:
-          path: '**/.next'
-          key: ${{ runner.os }}-npm-build-${{ github.sha }}
+          path: '**/node_modules'
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+      - name: install modules
+        uses: ./.github/actions/cache-build
 
       - name: Analyze bundle
         run: npx -p nextjs-bundle-analysis report
 
       - name: Upload bundle
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: bundle
           path: .next/analyze/__bundle_analysis.json
 
       - name: Download base branch bundle stats
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v3
         if: success() && github.event.number
         with:
           workflow: ci.yml
           branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
+          repo: ${{ github.repository }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           name: bundle
+
+      - name: Compare with base branch bundle
+        if: success() && github.event.number
+        run: ls -laR .next/analyze/base && npx -p nextjs-bundle-analysis compare
+      - name: Comment to Pull Request
+        uses: ./.github/actions/pull-request-comment
+        with:
+          includes-comment: '<!-- __NEXTJS_BUNDLE -->'
+          comment-body: $(cat .next/analyze/__bundle_analysis_comment.txt)
 
   lighthouse:
     if: github.event_name == 'pull_request'
@@ -149,8 +144,8 @@ jobs:
         id: lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          uploadArtifacts: true
+          temporaryPublicStorage: true
           configPath: ./lighthouserc.json
       - name: Create Lighthouse Comment
         uses: actions/github-script@v5
