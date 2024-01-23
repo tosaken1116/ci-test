@@ -25,6 +25,12 @@ runs:
       with:
         path: '**/.next'
         key: ${{ runner.os }}-npm-${{ github.base_ref }}
+    - name: Use Cached Dependencies
+      if: steps.cached-build.outputs.cache-hit == 'true' && steps.head-branch-build-cache.outputs.cache-hit != 'true' && steps.base-branch-build-cache.outputs.cache-hit != 'true'
+      uses: actions/cache@v4
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
 
     - name: Build
       if: steps.cached-build.outputs.cache-hit != 'true'
