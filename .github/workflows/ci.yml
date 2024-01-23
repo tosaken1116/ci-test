@@ -184,13 +184,14 @@ jobs:
                 return '🔴';
               }
             };
-            const table = `
+            const body = `
+            # Lighthouse Report
               | URL | Performance | Accessibility | Best Practices | SEO | PWA | Details |
               | --- | ----------- | ------------- | -------------- | --- | --- | ------- |
               ${results.map((result) => `| ${result.url} | ${mark(result.summary.performance)}${Math.trunc(result.summary.performance * 100)} | ${mark(result.summary.accessibility)}${Math.trunc(result.summary.accessibility * 100)} | ${mark(result.summary['best-practices'])}${Math.trunc(result.summary['best-practices'] * 100)} | ${mark(result.summary.seo)}${Math.trunc(result.summary.seo * 100)} | ${mark(result.summary.pwa)}${Math.trunc(result.summary.pwa * 100)} | :pencil: [result](${result.htmlPath}) |`).join('\n')}
             `;
 
-            core.setOutput("body", table)
+            core.setOutput("body", body)
       - name: Comment to Pull Request
         uses: ./.github/actions/pull-request-comment
         with:
