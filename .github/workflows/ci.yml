@@ -5,11 +5,18 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   id-token: write
   contents: write
   pull-requests: write
   actions: read
+
 jobs:
   report-diff:
     if: github.event_name == 'pull_request'
@@ -49,7 +56,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: install modules
-        uses: ./.github/actions/module-ci
+        uses: ./.github/actions/cache-module
 
   lint:
     needs: install-dependencies
@@ -92,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: install modules
+      - name: build
         uses: ./.github/actions/cache-build
 
   bundle-analysis:
@@ -105,7 +112,7 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-      - name: install modules
+      - name: cache build
         uses: ./.github/actions/cache-build
 
       - name: Analyze bundle
@@ -150,12 +157,6 @@ jobs:
           path: '**/.next'
           key: ${{ runner.os }}-npm-build-${{ github.sha }}
 
-      - name: Use Cached Dependencies
-        uses: actions/cache@v4
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
       - name: Run Lighthouse
         id: lighthouse
         uses: treosh/lighthouse-ci-action@v10
@@ -171,9 +172,9 @@ jobs:
           script: |
             const results = ${{steps.lighthouse.outputs.manifest}}
             const table = `
-              | URL | Performance | Accessibility | Best Practices | SEO | PWA |
-              | --- | ----------- | ------------- | -------------- | --- | --- |
-              ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} |`).join('\n')}
+              | URL | Performance | Accessibility | Best Practices | SEO | PWA | Details |
+              | --- | ----------- | ------------- | -------------- | --- | --- | ------- |
+              ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} | ${result.htmlPath} |`).join('\n')}
             `;
             core.setOutput("body", table)
       - name: Comment to Pull Request
