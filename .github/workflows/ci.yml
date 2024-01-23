@@ -77,8 +77,11 @@ jobs:
         with:
           path: '**/.test_cache'
           key: ${{ runner.os }}-npm-test-${{ github.base_ref}}
+      - name: Get number of CPU cores
+        id: cpu-cores
+        uses: SimenB/github-actions-cpu-cores@v2
       - name: Test
-        run: npm run test:unit
+        run: npm run test:unit --max-workers ${{ steps.cpu-cores.outputs.count }}
 
   build:
     needs: install-dependencies
