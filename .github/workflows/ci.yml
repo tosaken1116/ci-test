@@ -171,10 +171,18 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const results = ${{steps.lighthouse.outputs.manifest}}
+            const mark = (value) => {
+              if (value >= 90) {
+                return "🟢"
+              } else if(value >= 50) {
+                return "🟡"
+              }else {
+                return "🔴"
+            }
             const table = `
               | URL | Performance | Accessibility | Best Practices | SEO | PWA | Details |
               | --- | ----------- | ------------- | -------------- | --- | --- | ------- |
-              ${results.map(result => `| ${result.url} | ${result.summary.performance * 100} | ${result.summary.accessibility * 100} | ${result.summary['best-practices']* 100} | ${result.summary.seo* 100} | ${result.summary.pwa* 100} | ${result.htmlPath} |`).join('\n')}
+              ${results.map(result => `| ${result.url} | ${mark(result.summary.performance)}${result.summary.performance * 100} | ${mark(result.summary.accessibility)}${result.summary.accessibility * 100} | ${mark(result.summary['best-practices'])}${result.summary['best-practices']* 100} | ${mark(result.summary.seo)}${result.summary.seo* 100} | ${mark(result.summary.pwa)}${result.summary.pwa* 100} | :pencil: [result](${result.htmlPath}) |`).join('\n')}
             `;
             core.setOutput("body", table)
       - name: Comment to Pull Request
