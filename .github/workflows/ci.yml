@@ -76,37 +76,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Use Cached Build
-        id: cached-build
-        uses: actions/cache@v4
-        with:
-          path: '**/.next'
-          key: ${{ runner.os }}-npm-build-${{ github.sha }}
-
-      - name: Use Cached Dependencies
-        if: steps.cached-build.outputs.cache-hit != 'true'
-        uses: actions/cache@v4
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-
-      - name: Build
-        if: steps.cached-build.outputs.cache-hit != 'true'
-        run: npm run build
+      - name: install modules
+        uses: ./.github/actions/cache-build
 
   bundle-analysis:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: oven-sh/setup-bun@v1
       - name: Use Cached Build
         uses: actions/cache@v4
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-      - name: Build next.js app
-        run: ./node_modules/.bin/next build
+      - name: install modules
+        uses: ./.github/actions/cache-build
 
       - name: Analyze bundle
         run: npx -p nextjs-bundle-analysis report
@@ -131,39 +115,11 @@ jobs:
       - name: Compare with base branch bundle
         if: success() && github.event.number
         run: ls -laR .next/analyze/base && npx -p nextjs-bundle-analysis compare
-
-      - name: Get Comment Body
-        id: get-comment-body
-        if: success() && github.event.number
-        # https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#multiline-strings
-        run: |
-          echo "body<<EOF" >> $GITHUB_OUTPUT
-          echo "$(cat .next/analyze/__bundle_analysis_comment.txt)" >> $GITHUB_OUTPUT
-          echo EOF >> $GITHUB_OUTPUT
-
-      - name: Find Comment
-        uses: peter-evans/find-comment@v2
-        if: success() && github.event.number
-        id: fc
+      - name: Comment to Pull Request
+        uses: ./.github/actions/pull-request-comment
         with:
-          issue-number: ${{ github.event.number }}
-          body-includes: '<!-- __NEXTJS_BUNDLE -->'
-
-      - name: Create Comment
-        uses: peter-evans/create-or-update-comment@v3
-        if: success() && github.event.number && steps.fc.outputs.comment-id == 0
-        with:
-          issue-number: ${{ github.event.number }}
-          body: ${{ steps.get-comment-body.outputs.body }}
-
-      - name: Update Comment
-        uses: peter-evans/create-or-update-comment@v3
-        if: success() && github.event.number && steps.fc.outputs.comment-id != 0
-        with:
-          issue-number: ${{ github.event.number }}
-          body: ${{ steps.get-comment-body.outputs.body }}
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          edit-mode: replace
+          includes-comment: '<!-- __NEXTJS_BUNDLE -->'
+          comment-body: $(cat .next/analyze/__bundle_analysis_comment.txt)
 
   lighthouse:
     if: github.event_name == 'pull_request'
@@ -188,8 +144,8 @@ jobs:
         id: lighthouse
         uses: treosh/lighthouse-ci-action@v10
         with:
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          uploadArtifacts: true
+          temporaryPublicStorage: true
           configPath: ./lighthouserc.json
       - name: Create Lighthouse Comment
         uses: actions/github-script@v5
