@@ -26,7 +26,7 @@ jobs:
       - name: Analyze modules
         id: useless-modules
         run: |
-          echo "result=$(npx depcheck . --json --ignores="typescript" --skip-missing | npx json)" >> $GITHUB_OUTPUT
+          echo "result=$(npx depcheck . --skip-missing | npx json)" >> $GITHUB_OUTPUT
       - name: Create Useless Modules Comment
         id: useless-modules-comment
         uses: actions/github-script@v3
