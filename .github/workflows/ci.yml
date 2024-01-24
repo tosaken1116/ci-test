@@ -19,6 +19,7 @@ permissions:
 
 jobs:
   report-useless-modules:
+    needs: install-dependencies
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
