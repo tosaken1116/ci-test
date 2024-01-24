@@ -33,7 +33,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const json = JSON.parse(${{steps.useless-modules.outputs.result}});
+            const json = ${{steps.useless-modules.outputs.result}};
             const isUselessModuleEmpty = json.dependencies.length === 0 && json.devDependencies.length === 0;
             const uselessModulesComment = isUselessModuleEmpty ? 'useless modules not found✨' : `> [!CAUTION]\n> The following modules are not used in the code. Please remove them.\n> ${json.dependencies.map((module) => `- ${module}`).join('\n> ')}\n> ${json.devDependencies.map((module) => `- ${module}`).join('\n> ')}`;
             core.setOutput("body", uselessModulesComment)
