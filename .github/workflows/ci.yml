@@ -35,7 +35,7 @@ jobs:
           script: |
             const json = ${{steps.useless-modules.outputs.result}};
             const isUselessModuleEmpty = json.dependencies.length === 0 && json.devDependencies.length === 0;
-            const uselessModulesComment = isUselessModuleEmpty ? 'useless modules not found✨' : `> [!CAUTION]\n> The following modules are not used in the code. Please remove them.\n> ${json.dependencies.map((module) => `- ${module}`).join('\n> ')}\n> ${json.devDependencies.map((module) => `- ${module}`).join('\n> ')}`;
+            const uselessModulesComment = isUselessModuleEmpty ? 'useless modules not found✨' : `> [!CAUTION]\n> The following modules are not used in the code. Please remove them.\n> ${json.dependencies.map((module) => `- ${module}`).join('\n> ')}`;
             core.setOutput("body", uselessModulesComment)
       - name: report useless modules
         uses: ./.github/actions/pull-request-comment
