@@ -35,7 +35,7 @@ jobs:
           echo "result=$(npx depcheck . --skip-missing --json)" >> $GITHUB_OUTPUT
       - name: Create Useless Modules Comment
         id: useless-modules-comment
-        uses: actions/github-script@v3
+        uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -62,7 +62,7 @@ jobs:
           echo "total-lines=$TOTAL_LINES" >> $GITHUB_OUTPUT
 
       - name: Create Diff Comment
-        uses: actions/github-script@v3
+        uses: actions/github-script@v7
         id: diff-comment
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -200,7 +200,7 @@ jobs:
           configPath: ./lighthouserc.json
       - name: Create Lighthouse Comment
         id: light-house-comment
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
