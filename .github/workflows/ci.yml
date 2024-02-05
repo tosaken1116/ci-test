@@ -193,7 +193,7 @@ jobs:
 
       - name: Run Lighthouse
         id: lighthouse
-        uses: treosh/lighthouse-ci-action@v10
+        uses: treosh/lighthouse-ci-action@v11
         with:
           uploadArtifacts: true
           temporaryPublicStorage: true
